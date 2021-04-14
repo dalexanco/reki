@@ -1,27 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div id="app">
+    <div id="app-topbar"></div>
+    <Request  />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Request from './components/Request.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    Request
   }
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import "@/style.scss";
+
+html,
+body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
 }
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+// #app-topbar {
+//   display: flex;
+//   width: 100%;
+//   height: 20px;
+// }
 </style>
