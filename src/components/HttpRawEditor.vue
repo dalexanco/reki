@@ -7,13 +7,13 @@ import { defineComponent } from "vue";
 import ace from "brace";
 
 export default defineComponent({
-  name: "AceEditor",
+  name: "HttpRawEditor",
   props: {
-    value: String,
+    modelValue: String,
     lang: { type: String, default: "text" },
-    theme: String,
-    height: { type: String },
-    width: { type: String },
+    theme: { type: String, default: "github" },
+    height: { type: String, default: 'auto' },
+    width: { type: String, default: 'auto' },
     options: Object,
   },
   data(): { editor: ace.Editor | null; contentBackup: string | undefined } {
@@ -24,10 +24,23 @@ export default defineComponent({
   },
   computed: {
     style(): string {
-      return `width: ${this.width}px; ${this.height}: 200px`;
+      return `width: ${this.width}; height: ${this.height};`;
     },
   },
   methods: {
+    onEditorResize() {
+      this.$nextTick(() => {
+        this.editor?.resize();
+      });
+    },
+    editorInit(): void {
+      require("brace/ext/language_tools");
+      require("brace/mode/html");
+      require("brace/mode/javascript");
+      require("brace/mode/less");
+      require("brace/theme/github");
+      require("brace/snippets/javascript");
+    },
     px(n: string) {
       return /^\d*$/.test(n) ? n + "px" : n;
     },
@@ -49,15 +62,13 @@ export default defineComponent({
     options: function (newOption) {
       this.editor?.setOptions(newOption);
     },
-    height: function () {
-      this.$nextTick(() => {
-        this.editor?.resize();
-      });
+    height: {
+      handler: "onEditorResize",
+      immediate: true,
     },
-    width: function () {
-      this.$nextTick(() => {
-        this.editor?.resize();
-      });
+    width: {
+      handler: "onEditorResize",
+      immediate: true,
     },
   },
   beforeUnmount() {
@@ -74,19 +85,20 @@ export default defineComponent({
     this.editor = editor;
     editor.$blockScrolling = Infinity;
 
-    this.$emit("init", editor);
+    // this.$emit("init", editor);
+    this.editorInit();
 
     //editor.setOption("enableEmmet", true);
     const mode = "ace/mode/" + lang;
     editor.getSession().setMode(mode);
     editor.getSession().setUseWorker(false);
     editor.setTheme("ace/theme/" + theme);
-    if (this.value) editor.setValue(this.value, 1);
-    this.contentBackup = this.value;
+    if (this.modelValue) editor.setValue(this.modelValue, 1);
+    this.contentBackup = this.modelValue;
 
     editor.on("change", () => {
       var content = editor.getValue();
-      this.$emit("input", content);
+      this.$emit('update:modelValue', content);
       this.contentBackup = content;
     });
     if (this.options) editor.setOptions(this.options);

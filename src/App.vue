@@ -1,13 +1,11 @@
 <template>
-  <div id="app">
-    <div id="app-topbar"></div>
-    <Request  />
-  </div>
+  <div id="app-topbar"></div>
+  <Request  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Request from './components/Request.vue';
+import Request from './views/Request.vue';
 
 export default defineComponent({
   name: 'App',

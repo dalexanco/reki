@@ -27,7 +27,7 @@
             <li><a>Body</a></li>
           </ul>
         </div>
-        <RequestRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" :content="requestRaw" />
+        <HttpRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" v-model="requestRaw" />
       </div>
       <div class="column req-res-separator mx-0 is-flex-grow-0"></div>
       <div class="column is-flex is-flex-grow-1 is-flex-direction-column has-background-white">
@@ -51,7 +51,7 @@
             <li><a>Body (json)</a></li>
           </ul>
         </div>
-        <RequestRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" :content="responseRaw" />
+        <HttpRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" />
       </div>
     </section>
   </main>
@@ -60,12 +60,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { HTTP_VERBS } from "../constants";
-import RequestRawEditor from "./RequestRawEditor.vue";
+import HttpRawEditor from "../components/HttpRawEditor.vue";
 
 export default defineComponent({
   name: "Request",
   components: {
-    RequestRawEditor,
+    HttpRawEditor,
   },
   props: {
     msg: String,
