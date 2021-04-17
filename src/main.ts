@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import "./style.scss";
+import store from './store'
 
 declare global {
   interface Window {
@@ -8,4 +9,4 @@ declare global {
   }
 }
 
-createApp(App).mount('#app')
+createApp(App).use(store).mount('#app')
