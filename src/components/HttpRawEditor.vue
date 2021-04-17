@@ -98,7 +98,7 @@ export default defineComponent({
 
     editor.on("change", () => {
       var content = editor.getValue();
-      this.$emit('update:modelValue', content);
+      this.$emit('change', content);
       this.contentBackup = content;
     });
     if (this.options) editor.setOptions(this.options);

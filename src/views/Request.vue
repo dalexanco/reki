@@ -27,7 +27,7 @@
             <li><a>Body</a></li>
           </ul>
         </div>
-        <HttpRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" v-model="requestRaw" />
+        <HttpRawEditor class="is-flex is-flex-grow-1 is-flex-direction-column" v-model="requestRaw" v-on:change="onRequestRawChange" />
       </div>
       <div class="column req-res-separator mx-0 is-flex-grow-0"></div>
       <div class="column is-flex is-flex-grow-1 is-flex-direction-column has-background-white">
@@ -60,6 +60,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { HTTP_VERBS } from "../constants";
+import Actions from "../store/action-types";
 import HttpRawEditor from "../components/HttpRawEditor.vue";
 
 export default defineComponent({
@@ -73,6 +74,9 @@ export default defineComponent({
   methods: {
     async clickOnSendButton() {
       this.responseRaw = await window.sendHttpRequest(this.requestRaw);
+    },
+    onRequestRawChange(rawValue: string) {
+      this.$store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
     },
   },
   data() {
