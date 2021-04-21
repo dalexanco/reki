@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex'
 import MutationTypes from './mutation-types'
 import State from './state'
-import HttpRequestModel from './state/HttpRequestModel'
+import { HttpRequestModel } from '../models/HttpRequestModel'
 
 export type Mutations<S = State> = {
   [MutationTypes.OVERRIDE_REQUEST](state: S, payload: HttpRequestModel): void

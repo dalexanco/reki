@@ -7,7 +7,7 @@ import {
   DispatchOptions,
 } from 'vuex'
 import State from './state'
-import HttpRequestModel from './state/HttpRequestModel'
+import {HttpRequestModel} from '../models/HttpRequestModel'
 import { Getters, getters } from './getters'
 import { Mutations, mutations } from './mutations'
 import { Actions, actions } from './actions'
