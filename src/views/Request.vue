@@ -58,10 +58,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useStore } from 'vuex'
 import { HTTP_VERBS } from "../constants";
 import Actions from "../store/action-types";
 import HttpRawEditor from "../components/HttpRawEditor.vue";
+import debounce from "lodash/debounce";
+
+const defaultRawRequestValue = `POST https://example.com/comments HTTP/1.1
+Content-Type: application/xml
+Authorization: token xxx
+
+<request>
+    <name>sample</name>
+    <time>Wed, 21 Oct 2015 18:27:50 GMT</time>
+</request>`;
 
 export default defineComponent({
   name: "Request",
@@ -71,24 +82,26 @@ export default defineComponent({
   props: {
     msg: String,
   },
+  setup() {
+    const requestRaw = ref(defaultRawRequestValue)
+    const store = useStore()
+
+    const onRequestRawChange = debounce((rawValue: string) => {
+      store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
+    }, 500, { trailing: true })
+
+    return {
+      requestRaw,
+      onRequestRawChange,
+    }
+  },
   methods: {
     async clickOnSendButton() {
       this.responseRaw = await window.sendHttpRequest(this.requestRaw);
     },
-    onRequestRawChange(rawValue: string) {
-      this.$store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
-    },
   },
   data() {
     return {
-      requestRaw: `POST https://example.com/comments HTTP/1.1
-Content-Type: application/xml
-Authorization: token xxx
-
-<request>
-    <name>sample</name>
-    <time>Wed, 21 Oct 2015 18:27:50 GMT</time>
-</request>`,
       responseRaw: "",
       verbs: HTTP_VERBS,
       verbSelectModel: HTTP_VERBS[0],

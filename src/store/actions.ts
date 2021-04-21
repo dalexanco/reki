@@ -26,7 +26,7 @@ export const actions: ActionTree<State, State> & Actions = {
         const generatedRequest: HttpRequestModel = { raw: rawValue }
         commit(MutationTypes.OVERRIDE_REQUEST, generatedRequest)
         resolve(generatedRequest)
-      }, 2000)
+      }, 100)
     })
   },
 }

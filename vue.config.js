@@ -4,6 +4,9 @@ module.exports = {
       preload: "src/preload.ts",
     },
   },
+  configureWebpack: {
+    devtool: 'source-map'
+  },
   css: {
     loaderOptions: {
       // pass options to sass-loader
