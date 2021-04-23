@@ -1,4 +1,3 @@
-import * as fs from 'fs-extra';
 import { EOL } from 'os';
 import { Stream } from 'stream';
 import { FormParamEncodingStrategy } from '../models/FormParamEncodingStrategy';
@@ -6,8 +5,7 @@ import { HttpRequestModel } from '../models/HttpRequestModel';
 import { RequestParser } from './RequestParser';
 import { MimeUtility } from './mimeUtility';
 import { getContentType, getHeader, removeHeader } from './httpMisc';
-import { parseRequestHeaders, resolveRequestBodyPath } from './requestParserUtil';
-import { convertStreamToString } from './streamUtility';
+import { parseRequestHeaders } from './requestParserUtil';
 import { RestClientSettings } from '@/models/RestClientSettings';
 import { RequestHeaders } from '@/models/base';
 
@@ -81,25 +79,10 @@ export class HttpRequestParser implements RequestParser {
         // let underlying node.js library recalculate the content length
         removeHeader(headers, 'content-length');
 
-        // check request type
-        const isGraphQlRequest = getHeader(headers, 'X-Request-Type') === 'GraphQL';
-        if (isGraphQlRequest) {
-            removeHeader(headers, 'X-Request-Type');
-
-            // a request doesn't necessarily need variables to be considered a GraphQL request
-            const firstEmptyLine = bodyLines.findIndex(value => value.trim() === '');
-            if (firstEmptyLine !== -1) {
-                variableLines.push(...bodyLines.splice(firstEmptyLine + 1));
-                bodyLines.pop();    // remove the empty line between body and variables
-            }
-        }
-
         // parse body lines
         const contentTypeHeader = getContentType(headers);
         let body = await this.parseBody(bodyLines, contentTypeHeader);
-        if (isGraphQlRequest) {
-            body = await this.createGraphQlBody(variableLines, contentTypeHeader, body);
-        } else if (this.settings.formParamEncodingStrategy !== FormParamEncodingStrategy.Never && typeof body === 'string' && MimeUtility.isFormUrlEncoded(contentTypeHeader)) {
+        if (this.settings.formParamEncodingStrategy !== FormParamEncodingStrategy.Never && typeof body === 'string' && MimeUtility.isFormUrlEncoded(contentTypeHeader)) {
             if (this.settings.formParamEncodingStrategy === FormParamEncodingStrategy.Always) {
                 const stringPairs = body.split('&');
                 const encodedStringPairs: string[] = [];
@@ -122,24 +105,7 @@ export class HttpRequestParser implements RequestParser {
             requestLine.url = `${scheme}://${host}${requestLine.url}`;
         }
 
-        return new HttpRequestModel(requestLine.method, requestLine.url, headers, body, bodyLines.join(EOL), name);
-    }
-
-    private async createGraphQlBody(variableLines: string[], contentTypeHeader: string | undefined, body: string | Stream | undefined) {
-        let variables = await this.parseBody(variableLines, contentTypeHeader);
-        if (variables && typeof variables !== 'string') {
-            variables = await convertStreamToString(variables);
-        }
-
-        if (body && typeof body !== 'string') {
-            body = await convertStreamToString(body);
-        }
-
-        const graphQlPayload = {
-            query: body,
-            variables: variables ? JSON.parse(variables) : {}
-        };
-        return JSON.stringify(graphQlPayload);
+        return new HttpRequestModel(requestLine.method, requestLine.url, headers, body, bodyLines.join(EOL), name, this.requestRawText);
     }
 
     private parseRequestLine(line: string): { method: string, url: string } {
@@ -194,24 +160,7 @@ export class HttpRequestParser implements RequestParser {
                     const groupsValues = groups?.groups;
                     if (groups?.length === 4 && !!groupsValues) {
                         const inputFilePath = groupsValues.filepath;
-                        const fileAbsolutePath = await resolveRequestBodyPath(inputFilePath);
-                        if (fileAbsolutePath) {
-                            if (groupsValues.processVariables) {
-                                const buffer = await fs.readFile(fileAbsolutePath);
-                                const fileContent = buffer.toString(<BufferEncoding> groupsValues.encoding || this.defaultFileEncoding);
-
-                                // -- Variable parsing -- //
-                                // Temporary disabled
-                                // const resolvedContent = await VariableProcessor.processRawRequest(fileContent);
-                                // combinedStream.append(resolvedContent);
-
-                                combinedStream.append(fileContent);
-                            } else {
-                                combinedStream.append(fs.createReadStream(fileAbsolutePath));
-                            }
-                        } else {
-                            combinedStream.append(line);
-                        }
+                        combinedStream.append(line);
                     }
                 } else {
                     combinedStream.append(line);

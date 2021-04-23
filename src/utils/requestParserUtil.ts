@@ -1,5 +1,3 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import { RequestHeaders } from "../models/base";
 import { removeHeader } from './misc';
 
@@ -34,12 +32,4 @@ export function parseRequestHeaders(headerLines: string[], defaultHeaders: Reque
     }
 
     return { ...defaultHeaders, ...headers };
-}
-
-export async function resolveRequestBodyPath(refPath: string): Promise<string | undefined> {
-    if (path.isAbsolute(refPath)) {
-        return (await fs.pathExists(refPath)) ? refPath : undefined;
-    }
-
-    return undefined;
 }

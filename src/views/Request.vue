@@ -58,14 +58,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from 'vuex'
 import { HTTP_VERBS } from "../constants";
 import Actions from "../store/action-types";
 import HttpRawEditor from "../components/HttpRawEditor.vue";
 import debounce from "lodash/debounce";
 
-const defaultRawRequestValue = `POST https://example.com/comments HTTP/1.1
+const defaultRawRequestValue = `POST https://reqbin.com/echo/post/json HTTP/1.1
 Content-Type: application/xml
 Authorization: token xxx
 
@@ -93,11 +93,12 @@ export default defineComponent({
     return {
       requestRaw,
       onRequestRawChange,
+      currentRequest: computed(() => store.state.request),
     }
   },
   methods: {
     async clickOnSendButton() {
-      this.responseRaw = await window.sendHttpRequest(this.requestRaw);
+      this.responseRaw = await window.sendHttpRequest(this.currentRequest);
     },
   },
   data() {
