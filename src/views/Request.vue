@@ -3,6 +3,7 @@ import { computed, defineComponent } from "vue";
 import throttle from "lodash/throttle";
 
 import { useStore } from '../store'
+import * as Constants from '../constants';
 import Actions from "../store/action-types";
 import RequestInputRaw from "../components/RequestInputRaw.vue";
 import RequestInputUrl from "../components/RequestInputUrl.vue";
@@ -24,7 +25,7 @@ export default defineComponent({
     const requestRaw = computed(() => store.state.request ? store.state.request.raw : '')
     const onRequestRawChange = throttle((rawValue: string) => {
       store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
-    }, 250)
+    }, Constants.RAW_EDIT_SYNC_THROTTLE_DURATION_MS)
 
     return {
       onRequestRawChange,
