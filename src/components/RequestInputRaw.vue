@@ -7,7 +7,7 @@ import { defineComponent } from "vue";
 import ace from "brace";
 
 export default defineComponent({
-  name: "HttpRawEditor",
+  name: "RequestInputRaw",
   props: {
     modelValue: String,
     lang: { type: String, default: "text" },
@@ -46,7 +46,7 @@ export default defineComponent({
     },
   },
   watch: {
-    value: function (val) {
+    modelValue: function (val) {
       if (this.contentBackup !== val) {
         this.editor?.session.setValue(val);
         this.contentBackup = val;

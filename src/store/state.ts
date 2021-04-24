@@ -1,5 +1,5 @@
-import {HttpRequestModel} from "../models/HttpRequestModel";
+import { HttpRequestModel } from "../models/HttpRequestModel";
 
 export default interface State {
-  request: HttpRequestModel | undefined,
+  request: HttpRequestModel | undefined;
 }
