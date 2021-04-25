@@ -1,0 +1,17 @@
+GET /client-channel/channel/bind?authuser=0&ctype=cello&gsessionid=zz_u7qboC3OtoPC2_JUzWBRnvD-_cRtZw8oz7ReSmew&sw=true&VER=8&RID=rpc&SID=B3D72AADFB81D9A2&CI=1&AID=31&TYPE=xmlhttp&zx=lc9i0c6uqjwi&t=1 HTTP/2
+Host: cello.client-channel.google.com
+Cookie: HSID=Ay9i5JtmBzG0folrH; SSID=AtrK7dg-LIWLthQvz; APISID=lHsGZUStEqG3gwYq/ASJz0JSnGSOP0FfYJ; SAPISID=QzmaY2tRkwCy5AQi/AP_NN3wk70sas1r4E; __Secure-3PAPISID=QzmaY2tRkwCy5AQi/AP_NN3wk70sas1r4E; CONSENT=YES+FR.fr+20150628-20-0; ANID=AHWqTUlua-yTpaP_yDq9No1rRaZwUljUjh48FbGK84fqlPn3Olp1UaddpsqY1Hcw; S=billing-ui-v3=RzgIKOXhLfufoqowh_UQt7juDsbNiDBM:billing-ui-v3-efe=RzgIKOXhLfufoqowh_UQt7juDsbNiDBM; SID=8gdmziqy3N0QOC2lz8hoNE-aTlM5GjGHkGCReYsQtalTeRfCfmsT69NyF_LVChppG67K2Q.; __Secure-3PSID=8gdmziqy3N0QOC2lz8hoNE-aTlM5GjGHkGCReYsQtalTeRfCWlntdW5nHOoCE6hAnsYqlQ.; SEARCH_SAMESITE=CgQIrpIB; OGPC=19022519-1:; 1P_JAR=2021-04-23-21; NID=214=X69RHAWFc5ouNpWAC__kYQO0J2Jn7IWBrm42wZFkvjFO_meZYhXL72w1TBvV6OIIOJ3tRQ4NarxHt4M5mcVSSjD8VSjzmFprrvjHI9WbaIcVpxCC18SuCNMZir9WfIM-Sl-Qpifvhj2nJIKryAPNggqWLyH2FJKDNrlQLvr1voAwUjGd_myeqAuMDUIjEJiVLoRF5rEDNus7Aby3YoSuVoWV39NreytcT8BVXNZGja8CPaoQdT90nRHI; SIDCC=AJi4QfHjRmnkOaQTobq6j0ej1Lufy1AUVzzU2L4EvfoQU7D_OuOFbuVIs6F0SFD9pCN3gZ8XS79R; __Secure-3PSIDCC=AJi4QfFy_0mQ51gvMjWqXAf8gMC-zKk9Db6edI60lrjGNbOg9HghPq59eCwbW6m556ZfOBEhD0TK
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36
+X-Origin: https://drive.google.com
+X-Goog-Authuser: 0
+Authorization: SAPISIDHASH 1619292408_714a581f403e1a191444bb14a6ae30e5f6f65ade
+Accept: */*
+X-Client-Data: CJS2yQEIprbJAQjEtskBCKmdygEI+MfKAQjDz8oBCLGaywEI45zLAQipncsB
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://cello.client-channel.google.com/client-channel/js/2106525317-sharedchannelmain_bin.js?ctype=cello&authuser=0
+Accept-Encoding: gzip, deflate
+Accept-Language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7
+Connection: close
+
