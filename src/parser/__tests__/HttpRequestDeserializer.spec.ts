@@ -1,8 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import { expect } from 'chai'
-import { HttpRequestParser } from '../HttpRequestDeserializer'
+import HtppRequestdeserializer from '../HttpRequestDeserializer'
 import { HttpRequestModel } from '../../models/HttpRequestModel'
+import HttpRequestDeserializer from '../HttpRequestDeserializer'
 
 const rootPath = process.cwd()
 
@@ -11,7 +12,7 @@ describe('HttpRequestModel', () => {
 
     let request: HttpRequestModel
     before(async () => {
-      const parser = new HttpRequestParser();
+      const parser = new HttpRequestDeserializer();
       const nominalRequest = fs.readFileSync(path.resolve(rootPath, 'testcases/raw-request-json.http'))
       request = await parser.parse(nominalRequest.toString())
     })

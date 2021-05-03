@@ -5,7 +5,7 @@ import readline from 'readline'
 import { IncomingMessage } from 'http'
 import https, { RequestOptions } from "https";
 import { HttpRequestModel as DeprecatedHttpRequestModel } from "./models/HttpRequestModel";
-import { HttpRequestModel } from "./parser/HttpRequestModel";
+import { HttpRequestModel } from "./models/HttpRequestModel";
 
 function nodeFetch(requestOptions: RequestOptions): Promise<IncomingMessage> {
   return new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ function nodeFetch(requestOptions: RequestOptions): Promise<IncomingMessage> {
 
 function sendHttpRequest(request: DeprecatedHttpRequestModel): void {
   console.log(`Preparing request "${request.method} ${request.url}"`);
-  const url = new URL(request.url);
+  const url = new URL(request.url || ''); // TODO : rewrite me
   const requestOptions: RequestOptions = {
     method: request.method,
     host: url.host,

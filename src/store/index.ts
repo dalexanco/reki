@@ -14,7 +14,8 @@ import { Actions, actions } from './actions'
 
 export const store = createStore<State>({
   state: {
-    request: undefined as HttpRequestModel | undefined,
+    request: undefined,
+    raw: undefined,
   },
   mutations: mutations,
   actions: actions,

@@ -1,6 +1,6 @@
 import Stream from 'stream'
 import readLine from 'readline'
-import { HttpRequestModel } from '../models/HttpRequestModel'
+import { HttpRequestModel } from '@/models/HttpRequestModel'
 import { PARSER_DEFAULT_PROTOCOL } from '@/constants'
 import { HttpRequestMethodModel } from '@/models/HttpRequestMethodModel'
 
@@ -30,7 +30,7 @@ const DEFAULT_OPTIONS: ParserOptions = {
 const REGEX_MODEL_VERSION = /^#\sHttpRequest-(\d\.\d)/
 const REGEX_META_FIELD = /^#\s?(\w*):\s?(.*)/
 
-export class HttpRequestParser {
+export default class HttpRequestDeserializer {
 
   private _requestParseState: ParseRequestState
   private _commentParseState: ParseCommentState

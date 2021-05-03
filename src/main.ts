@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import "./style.scss";
 import { store } from './store'
-import { HttpRequestModel } from './parser/HttpRequestModel';
+import { HttpRequestModel } from './models/HttpRequestModel';
 
 declare global {
   interface Window {

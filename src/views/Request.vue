@@ -22,7 +22,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const request = computed(() => store.state.request)
-    const requestRaw = computed(() => store.state.request ? store.state.request.raw : '')
+    const requestRaw = computed(() => store.state.raw || '')
     const onRequestRawChange = throttle((rawValue: string) => {
       store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
     }, Constants.RAW_EDIT_SYNC_THROTTLE_DURATION_MS)
