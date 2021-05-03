@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import Stream from 'stream'
+import readline from 'readline'
 import { IncomingMessage } from 'http'
 import https, { RequestOptions } from "https";
-import { HttpRequestModel } from "./models/HttpRequestModel";
+import { HttpRequestModel as DeprecatedHttpRequestModel } from "./models/HttpRequestModel";
+import { HttpRequestModel } from "./parser/HttpRequestModel";
 
 function nodeFetch(requestOptions: RequestOptions): Promise<IncomingMessage> {
   return new Promise((resolve, reject) => {
@@ -12,7 +15,7 @@ function nodeFetch(requestOptions: RequestOptions): Promise<IncomingMessage> {
   });
 }
 
-function sendHttpRequest(request: HttpRequestModel): void {
+function sendHttpRequest(request: DeprecatedHttpRequestModel): void {
   console.log(`Preparing request "${request.method} ${request.url}"`);
   const url = new URL(request.url);
   const requestOptions: RequestOptions = {
@@ -43,6 +46,16 @@ function sendHttpRequest(request: HttpRequestModel): void {
   });
 }
 
+function parseHttpRequest(raw: string): HttpRequestModel {
+  // const stream = Stream.Readable.from(raw)
+  // const lineReader = readline.createInterface(stream)
+
+  // lineReader.
+  // stream.read
+  return new HttpRequestModel();
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   (window as any).sendHttpRequest = sendHttpRequest;
+  (window as any).parseHttpRequest = parseHttpRequest;
 });

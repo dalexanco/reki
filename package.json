@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test": "vue-cli-service test:unit --recursive 'src/**/__tests__/*.spec.ts'",
+    "test:watch": "vue-cli-service test:unit --recursive 'src/**/__tests__/*.spec.ts' --watch",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",

@@ -1,15 +1,26 @@
-GET /v2/pet/findByStatus?status=available HTTP/1.1
+# HttpRequest-1.0
+#
+# id: 123e4567-e89b-12d3-a456-426614174000
+# name: GET findByStatus
+# protocol:https
+#createdAt: 2021-04-29 23:18:04
+# updatedAt: 2021-04-29 23:18:04
+# 3xtr4: toto
+PUT /v2/pet/findByStatus?status=pending HTTP/2
 Host: petstore.swagger.io
 Sec-Ch-Ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
-Accept: application/xml
+Accept: application/json
 Sec-Ch-Ua-Mobile: ?0
+# A custom comment on a random line
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36
 Origin: https://editor.swagger.io
+    # Another comment with some starting spaces
 Sec-Fetch-Site: same-site
 Sec-Fetch-Mode: cors
 Sec-Fetch-Dest: empty
+Sec-Fetch-Dest: duplicated
+Sec-fetch-Dest: duplicated-case-diff
 Referer: https://editor.swagger.io/
 Accept-Encoding: gzip, deflate
 Accept-Language: fr-CA,fr-FR;q=0.9,fr;q=0.8,en-US;q=0.7,en;q=0.6
 Connection: close
-

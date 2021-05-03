@@ -1,1 +1,2 @@
 export const RAW_EDIT_SYNC_THROTTLE_DURATION_MS = 250
+export const PARSER_DEFAULT_PROTOCOL = 'http'

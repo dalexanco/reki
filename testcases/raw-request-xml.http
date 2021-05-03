@@ -1,0 +1,14 @@
+GET /v2/pet/findByStatus?status=available HTTP/1.1
+Host: petstore.swagger.io
+Sec-Ch-Ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
+Accept: application/xml
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36
+Origin: https://editor.swagger.io
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://editor.swagger.io/
+Accept-Encoding: gzip, deflate
+Accept-Language: fr-CA,fr-FR;q=0.9,fr;q=0.8,en-US;q=0.7,en;q=0.6
+Connection: close

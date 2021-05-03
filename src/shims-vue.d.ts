@@ -4,3 +4,9 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare namespace NodeJS {
+  export interface ProcessEnv {
+    TESTCASES_PATH: string;
+  }
+}
