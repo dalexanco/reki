@@ -1,5 +1,3 @@
-import Stream from 'stream'
-import readLine from 'readline'
 import { HttpRequestModel } from '@/models/HttpRequestModel'
 import { PARSER_DEFAULT_PROTOCOL } from '@/constants'
 import { HttpRequestMethodModel } from '@/models/HttpRequestMethodModel'
@@ -46,16 +44,14 @@ export default class HttpRequestDeserializer {
 
   public parse(rawRequest: string): Promise<HttpRequestModel> {
     return new Promise((resolve) => {
-      const stream = Stream.Readable.from(rawRequest)
-      const lineReader = readLine.createInterface(stream)
       let lineCount = 0
-      lineReader.on('line', (rawLine) => {
+      rawRequest.split(/\r?\n/).forEach((rawLine) => {
         const trimLine = rawLine.trim()
         trimLine.startsWith('#') ?
           this.parseCommentLine(trimLine, lineCount++) :
           this.parseHttpLine(rawLine, lineCount++)
       })
-      lineReader.on('close', () => resolve(this.request))
+      resolve(this.request)
     })
   }
 

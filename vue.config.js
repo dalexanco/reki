@@ -1,3 +1,5 @@
+const packageInfo = require("./package.json");
+
 module.exports = {
   pluginOptions: {
     electronBuilder: {
@@ -5,7 +7,13 @@ module.exports = {
     },
   },
   configureWebpack: {
-    devtool: 'source-map'
+    devtool: "source-map",
+  },
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
+      args[0].title = packageInfo.productName;
+      return args;
+    });
   },
   css: {
     loaderOptions: {
