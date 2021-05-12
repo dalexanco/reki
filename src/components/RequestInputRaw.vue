@@ -9,7 +9,7 @@ import ace from "brace";
 export default defineComponent({
   name: "RequestInputRaw",
   props: {
-    modelValue: String,
+    request: String,
     lang: { type: String, default: "text" },
     theme: { type: String, default: "github" },
     height: { type: String, default: 'auto' },
@@ -46,7 +46,7 @@ export default defineComponent({
     },
   },
   watch: {
-    modelValue: function (val) {
+    request: function (val) {
       if (this.contentBackup !== val) {
         this.editor?.session.setValue(val);
         this.contentBackup = val;
@@ -93,8 +93,8 @@ export default defineComponent({
     editor.getSession().setMode(mode);
     editor.getSession().setUseWorker(false);
     editor.setTheme("ace/theme/" + theme);
-    if (this.modelValue) editor.setValue(this.modelValue, 1);
-    this.contentBackup = this.modelValue;
+    if (this.request) editor.setValue(this.request, 1);
+    this.contentBackup = this.request;
 
     editor.on("change", () => {
       var content = editor.getValue();

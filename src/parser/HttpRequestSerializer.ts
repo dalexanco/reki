@@ -15,20 +15,20 @@ export default class HttpRequestSerializer {
     this.options = { ...options }
   }
 
-  public parse(request: HttpRequestModel): Promise<string> {
-    const output = ['']
+  public parse(request: HttpRequestModel): string {
+    const output: Array<string> = []
     this.appendMeta(output, request)
     this.appendRequestRootLine(output, request)
     this.appendRequestHeaders(output, request)
     this.appendComments(output, request)
 
-    return Promise.resolve(output.join('\n'))
+    return output.join('\n')
   }
 
   private appendMeta(output: Array<string>, request: HttpRequestModel) {
     const metaHeader = `# HttpRequest-${request.modelVersion}`
-    const metaFields = request.meta.map(([key, value]) => `${key}: ${value}`)
-    output.splice(output.length, 0, metaHeader, ...metaFields)
+    const metaFields = request.meta.map(([key, value]) => `# ${key}: ${value}`)
+    output.splice(output.length, 0, metaHeader, '#', ...metaFields)
   }
 
   private appendRequestRootLine(output: Array<string>, request: HttpRequestModel) {

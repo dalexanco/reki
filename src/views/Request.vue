@@ -1,20 +1,28 @@
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import throttle from "lodash/throttle";
+import { computed, defineComponent, ref } from "vue";
 
 import { useStore } from '../store'
-import * as Constants from '../constants';
-import Actions from "../store/action-types";
+import RequestInputHeaders from "../components/RequestInputHeaders.vue";
+import RequestInputMethod from "../components/RequestInputMethod.vue";
 import RequestInputRaw from "../components/RequestInputRaw.vue";
 import RequestInputUrl from "../components/RequestInputUrl.vue";
-import RequestInputMethod from "../components/RequestInputMethod.vue";
+import TabBar from "../components/TabBar.vue";
+
+const TabKeys = {
+  RAW: 'raw',
+  PARAMS: 'params',
+  HEADERS: 'headers',
+  BODY: 'body',
+}
 
 export default defineComponent({
   name: "Request",
   components: {
+    RequestInputHeaders,
+    RequestInputMethod,
     RequestInputRaw,
     RequestInputUrl,
-    RequestInputMethod,
+    TabBar,
   },
   props: {
     msg: String,
@@ -22,26 +30,27 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const request = computed(() => store.state.request)
-    const requestRaw = computed(() => store.state.raw || '')
-    const onRequestRawChange = throttle((rawValue: string) => {
-      store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, rawValue);
-    }, Constants.RAW_EDIT_SYNC_THROTTLE_DURATION_MS)
+    const requestRaw = computed(() => store.getters.requestRaw)
+
+    const requestTabs = [
+      { key: TabKeys.RAW, label: 'Raw' },
+      { key: TabKeys.PARAMS, label: 'URL/Params' },
+      { key: TabKeys.HEADERS, label: 'Headers' },
+      { key: TabKeys.BODY, label: 'Body' },
+    ]
+    const requestTabsActive = ref(requestTabs[0].key)
+    const onRequestTabChange = (key: string) => {
+      requestTabsActive.value = key;
+    }
 
     return {
-      onRequestRawChange,
+      TabKeys,
       request,
       requestRaw,
-      initRequest: () => {
-        store.dispatch(Actions.ON_REQUEST_RAW_CHANGE, `POST https://reqbin.com/echo/post/json HTTP/1.1
-Content-Type: application/xml
-Authorization: token xxx
-
-<request>
-    <name>sample</name>
-    <time>Wed, 21 Oct 2015 18:27:50 GMT</time>
-</request>`)
-      }
-    }
+      requestTabs,
+      requestTabsActive,
+      onRequestTabChange,
+    };
   },
   methods: {
     async clickOnSendButton() {
@@ -110,15 +119,9 @@ Authorization: token xxx
             </div>
           </div>
         </div>
-        <div class="tabs is-small is-centered mb-0">
-          <ul>
-            <li class="is-active"><a>Raw</a></li>
-            <li><a>URL/Params</a></li>
-            <li><a>Headers</a></li>
-            <li><a>Body</a></li>
-          </ul>
-        </div>
-        <RequestInputRaw class="is-flex is-flex-grow-1 is-flex-direction-column" v-model="requestRaw" v-on:change="onRequestRawChange" />
+        <TabBar v-bind:tabs="requestTabs" v-bind:active="requestTabsActive" v-bind:onChange="onRequestTabChange" />
+        <RequestInputRaw v-if="requestTabsActive == TabKeys.RAW" class="is-flex is-flex-grow-1 is-flex-direction-column" v-bind:request="requestRaw" />
+        <RequestInputHeaders v-if="requestTabsActive == TabKeys.HEADERS" />
       </div>
       <div class="column req-res-separator mx-0 is-flex-grow-0"></div>
       <div class="column is-flex is-flex-grow-1 is-flex-direction-column has-background-white">
@@ -129,7 +132,6 @@ Authorization: token xxx
               <span class="tag is-light">23 seconds</span>
             </div>
           </div>
-          <button @click="initRequest">test</button>
           <div class="level-right mt-0">
             <div class="level-item">
               <span class="tag is-light is-success">Status 200 OK</span>

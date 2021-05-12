@@ -29,9 +29,4 @@ body {
   flex-direction: column;
   min-height: 100%;
 }
-// #app-topbar {
-//   display: flex;
-//   width: 100%;
-//   height: 20px;
-// }
 </style>

@@ -3,6 +3,7 @@
 import { IncomingMessage } from 'http'
 import https, { RequestOptions } from "https";
 import { HttpRequestModel } from "./models/HttpRequestModel";
+import { ipcRenderer } from 'electron'
 
 function nodeFetch(requestOptions: RequestOptions): Promise<IncomingMessage> {
   return new Promise((resolve, reject) => {
@@ -45,4 +46,5 @@ function sendHttpRequest(request: HttpRequestModel): void {
 
 window.addEventListener("DOMContentLoaded", () => {
   (window as any).sendHttpRequest = sendHttpRequest;
+  (window as any).ipc = ipcRenderer;
 });
