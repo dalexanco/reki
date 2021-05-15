@@ -21,12 +21,12 @@ export default defineComponent({
   <div class="wrapper-scroll-overflow">
     <table class="table is-fullwidth is-size-7">
       <tbody>
-        <tr v-for="header in headers" :key="header[0]">
+        <tr v-for="header in headers" :key="header.id">
           <th class="width-30">
-            <input class="input is-small has-text-weight-bold	" type="text" placeholder="Header key" :value="header[0]" />
+            <input class="input is-small has-text-weight-bold	" type="text" placeholder="Header key" :value="header.key" />
           </th>
           <td>
-            <input class="input is-small" type="text" placeholder="Header value" :value="header[1]" />
+            <input class="input is-small" type="text" placeholder="Header value" :value="header.value" />
           </td>
         </tr>
       </tbody>

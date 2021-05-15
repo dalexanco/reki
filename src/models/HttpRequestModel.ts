@@ -1,6 +1,8 @@
 import { PARSER_DEFAULT_PROTOCOL } from "@/constants";
 import HttpRequestComment from "./HttpRequestCommentModel";
 import { HttpRequestMethodModel } from "./HttpRequestMethodModel";
+import { HttpRequestHeaderModel } from "./HttpRequestHeaderModel";
+
 export class HttpRequestModel {
   name?: string;
   id?: string;
@@ -11,7 +13,7 @@ export class HttpRequestModel {
   host?: string;
   path?: string;
   body?: string;
-  headers: Array<[string, string]>;
+  headers: Array<HttpRequestHeaderModel>;
   meta: Array<[string, string]>;
   comments: Array<HttpRequestComment>;
 
@@ -32,9 +34,7 @@ export class HttpRequestModel {
   }
 
   getHeader(key: string) {
-    const header = this.headers.find(([headerKey]) => key === headerKey)
-
-    return header ? header[1] : undefined
+    return this.headers.find((header) => key === header.key)
   }
 
   getMeta(key: string) {

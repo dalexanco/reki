@@ -1,6 +1,7 @@
 import { HttpRequestModel } from '@/models/HttpRequestModel'
 import { PARSER_DEFAULT_PROTOCOL } from '@/constants'
 import { HttpRequestMethodModel } from '@/models/HttpRequestMethodModel'
+import { HttpRequestHeaderModel } from '@/models/HttpRequestHeaderModel'
 
 enum ParseRequestState {
   Url,
@@ -121,7 +122,7 @@ export default class HttpRequestDeserializer {
   }
 
   private parseHeaderLine(rawLine: string) {
-    const headers: Array<[string, string]> = [];
+    const headers: Array<HttpRequestHeaderModel> = [];
     let fieldName: string;
     let fieldValue: string;
     const separatorIndex = rawLine.indexOf(':');
@@ -132,15 +133,10 @@ export default class HttpRequestDeserializer {
         fieldName = rawLine.substring(0, separatorIndex).trim();
         fieldValue = rawLine.substring(separatorIndex + 1).trim();
     }
+    headers.push(new HttpRequestHeaderModel(fieldName, fieldValue));
 
+    // Catch host
     const normalizedFieldName = fieldName.toLowerCase();
-    const existingHeaderIndex = headers.findIndex(([key]) => key === normalizedFieldName)
-    if (existingHeaderIndex < 0) {
-        headers.push([fieldName, fieldValue]);
-    } else {
-        const splitter = normalizedFieldName === 'cookie' ? ';' : ',';
-        headers[existingHeaderIndex][1] += `${splitter}${fieldValue}`;
-    }
     if (normalizedFieldName === 'host') {
       this.request.host = fieldValue
     }

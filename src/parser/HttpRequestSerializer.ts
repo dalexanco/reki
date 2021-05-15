@@ -37,7 +37,7 @@ export default class HttpRequestSerializer {
   }
 
   private appendRequestHeaders(output: Array<string>, request: HttpRequestModel) {
-    const requestHeaders = request.headers.map(([key, value]) => `${key}: ${value}`)
+    const requestHeaders = request.headers.map(({ key, value }) => `${key}: ${value}`)
     output.splice(output.length, 0, ...requestHeaders)
   }
 
