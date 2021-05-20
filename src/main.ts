@@ -13,4 +13,6 @@ declare global {
   }
 }
 
-createApp(App).use(store).mount('#app')
+const app = createApp(App)
+app.use(store)
+app.mount('#app')

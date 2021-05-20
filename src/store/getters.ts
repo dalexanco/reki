@@ -9,7 +9,6 @@ export type Getters = {
 
 export const getters: GetterTree<State, State> & Getters = {
   requestRaw: (state) => {
-    console.log("getters ! %o", state.request)
     if (!state.request) return '';
     const serializer = new HttpRequestSerializer()
     return serializer.parse(state.request)
