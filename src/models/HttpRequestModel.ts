@@ -33,8 +33,8 @@ export class HttpRequestModel {
     return `${normalizedProtocol}://${host}${path}`
   }
 
-  getHeader(key: string) {
-    return this.headers.find((header) => key === header.key)
+  getHeader(id: string) {
+    return this.headers.find((header) => id === header.id)
   }
 
   getMeta(key: string) {

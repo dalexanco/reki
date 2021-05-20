@@ -5,9 +5,17 @@ export class HttpRequestHeaderModel {
   key: string;
   value: string;
 
-  constructor(key: string, value: string) {
-    this.id = nanoid()
+  constructor(key: string, value: string, id: string | null = null) {
+    this.id = id || nanoid()
     this.key = key
     this.value = value
+  }
+
+  public static clone(source: HttpRequestHeaderModel): HttpRequestHeaderModel {
+    return new HttpRequestHeaderModel(
+      source.key,
+      source.value,
+      source.id,
+    )
   }
 }
