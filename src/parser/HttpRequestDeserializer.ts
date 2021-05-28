@@ -1,5 +1,5 @@
 import { HttpRequestModel } from '@/models/HttpRequestModel'
-import { PARSER_DEFAULT_PROTOCOL } from '@/constants'
+import { PARSER_DEFAULT_HTTP_VERSION, PARSER_DEFAULT_PROTOCOL } from '@/constants'
 import { HttpRequestMethodModel } from '@/models/HttpRequestMethodModel'
 import { HttpRequestHeaderModel } from '@/models/HttpRequestHeaderModel'
 
@@ -100,6 +100,7 @@ export default class HttpRequestDeserializer {
   private parseRootLine(rawLine: string) {
     let method: string;
     let path: string;
+    let httpVersion: string = PARSER_DEFAULT_HTTP_VERSION;
 
     const matchValidMethod = /^(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS|CONNECT|TRACE)\s+/i.exec(rawLine);
     if (matchValidMethod) {
@@ -111,11 +112,13 @@ export default class HttpRequestDeserializer {
     }
 
     path = path.trim();
-    const matchValidProtocol = /\s+HTTP\/.*$/i.exec(path)
+    const matchValidProtocol = /\s+(HTTP\/.*)$/i.exec(path)
     if (matchValidProtocol) {
       path = path.substr(0, matchValidProtocol.index);
+      httpVersion = matchValidProtocol[1]
     }
     this.request.protocol = this.request.getMeta('protocol') || PARSER_DEFAULT_PROTOCOL
+    this.request.httpVersion = httpVersion
     this.request.method = <HttpRequestMethodModel> method
     this.request.path = path
     this._requestParseState = ParseRequestState.Header
@@ -133,14 +136,15 @@ export default class HttpRequestDeserializer {
         fieldName = rawLine.substring(0, separatorIndex).trim();
         fieldValue = rawLine.substring(separatorIndex + 1).trim();
     }
-    headers.push(new HttpRequestHeaderModel(fieldName, fieldValue));
 
     // Catch host
     const normalizedFieldName = fieldName.toLowerCase();
     if (normalizedFieldName === 'host') {
       this.request.host = fieldValue
+      return;
     }
 
+    headers.push(new HttpRequestHeaderModel(fieldName, fieldValue));
     this.request.headers = [ ...this.request.headers, ...headers ];
   }
 

@@ -1,8 +1,5 @@
-import Stream from 'stream'
-import readLine from 'readline'
 import { HttpRequestModel } from '@/models/HttpRequestModel'
-import { PARSER_DEFAULT_PROTOCOL } from '@/constants'
-import { HttpRequestMethodModel } from '@/models/HttpRequestMethodModel'
+import { PARSER_DEFAULT_HTTP_VERSION } from '@/constants'
 
 export interface SerializerOptions {
 }
@@ -32,13 +29,15 @@ export default class HttpRequestSerializer {
   }
 
   private appendRequestRootLine(output: Array<string>, request: HttpRequestModel) {
-    const requestRootLine = `${request.method} ${request.path} ${request.httpVersion}`
+    const { httpVersion = PARSER_DEFAULT_HTTP_VERSION } = request
+    const requestRootLine = `${request.method} ${request.path} ${httpVersion}`
     output.splice(output.length, 0, requestRootLine)
   }
 
   private appendRequestHeaders(output: Array<string>, request: HttpRequestModel) {
+    const hostHeader = `Host: ${request.host}`
     const requestHeaders = request.headers.map(({ key, value }) => `${key}: ${value}`)
-    output.splice(output.length, 0, ...requestHeaders)
+    output.splice(output.length, 0, hostHeader, ...requestHeaders)
   }
 
   private appendComments(output: Array<string>, request: HttpRequestModel) {

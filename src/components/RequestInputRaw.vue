@@ -84,7 +84,7 @@ export default defineComponent({
     const editor = ace.edit(this.$el as HTMLElement);
     this.editor = editor;
     editor.$blockScrolling = Infinity;
-    editor.setReadOnly(true);
+    // editor.setReadOnly(true);
 
     // this.$emit("init", editor);
     this.editorInit();
