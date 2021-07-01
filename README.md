@@ -56,6 +56,7 @@ It works on mac, linux and windows.
 
 * [Electron](https://www.electronjs.org/)
 * [VueJS](https://vuejs.org/)
+* [Vuex](https://vuex.vuejs.org/)
 * [Typescript](https://www.typescriptlang.org/)
 * [Bulma](https://bulma.io/)
 * love :)
