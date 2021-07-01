@@ -26,11 +26,41 @@ export default defineComponent({
 </script>
 
 <template>
-  <th class="width-30">
-    <input @change="onHeaderChange('key', $event.target.value)" :value="header.key" class="input is-small has-text-weight-bold	" type="text" placeholder="Header key" />
-  </th>
-  <td>
+  <td class="header-action-drag">
+    <p class="button is-dark is-inverted">
+      <font-awesome-icon icon="grip-lines" />
+    </p>
+  </td>
+  <td class="header-key">
+    <input @change="onHeaderChange('key', $event.target.value)" :value="header.key" class="input is-small has-text-weight-bold" type="text" placeholder="Header key" />
+  </td>
+  <td class="header-value">
     <input @change="onHeaderChange('value', $event.target.value)" :value="header.value" class="input is-small" type="text" placeholder="Header value" />
+  </td>
+  <td class="header-action-drag">
+    <p class="button is-dark is-inverted">
+      <font-awesome-icon icon="minus-square" />
+    </p>
   </td>
 </template>
 
+<style lang="scss" scoped>
+.table {
+  td.header-action-drag, td.header-key, td.header-value, td.header-action-delete {
+    padding: 0;
+    & input {
+      box-shadow: none;
+      border: none;
+      margin: 0;
+      padding-left: 0;
+      height: 100%;
+    }
+  }
+  td.header-action-drag .button {
+    border-radius: 0;
+  }
+  td.header-key {
+    width: 35%;
+  }
+}
+</style>

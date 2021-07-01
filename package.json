@@ -16,6 +16,11 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-4",
+    "@revolist/revogrid": "^3.0.9",
+    "@revolist/vue3-datagrid": "^3.0.52",
     "@types/lodash": "^4.14.168",
     "brace": "^0.11.1",
     "bulma": "^0.9.2",

@@ -47,7 +47,4 @@ export default defineComponent({
   flex-direction: column;
   flex-grow: 1;
 }
-.width-30 {
-  width: 30%;
-}
 </style>
