@@ -14,7 +14,13 @@
     <a href="https://github.com/dalexanco/reki/issues">Request Feature</a>
   </p>
 </p>
+<br/><br/>
 
+> **Important** 👷 The project is still in Work-In-Progress state.
+> 
+> Stay tuned to be notified for a first release date ! 😃
+
+<br/><br/>
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -25,13 +31,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -66,8 +66,6 @@ It works on mac, linux and windows.
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
-
-### Installation / Local start
 
 1. Clone the repo
    ```sh
