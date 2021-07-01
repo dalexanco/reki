@@ -1,27 +1,19 @@
 
 <!-- PROJECT LOGO -->
 <p align="center">
-  [![Product Name Screen Shot][product-screenshot]](https://github.com/dalexanco/reki)
-
+  <a href="https://github.com/dalexanco/reki">
+    <img src="doc/app-logo.png" alt="Logo" width="451" height="254">
+  </a>
   <h3 align="center">Reki</h3>
 
   <p align="center">
-    A small desktop application for developpers to make HTTP requests.<br/>
-    The main goal of the application is to easilly create, edit and share these request template. Developers will keep control on every part of these data (request, template and data samples) to share each part as they want (synced cloud or git repository for example).<br/>
-    It works on mac, linux and windows.
+    A small desktop application for developers to make and share HTTP requests.<br/>
     <br />
-    <a href="https://github.com/dalexanco/reki"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/dalexanco/reki">View Demo</a>
-    ·
     <a href="https://github.com/dalexanco/reki/issues">Report Bug</a>
     ·
     <a href="https://github.com/dalexanco/reki/issues">Request Feature</a>
   </p>
 </p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -56,9 +48,8 @@
 
 ![Reki Screen Shot][product-screenshot]
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
+The main goal of the application is to easilly create, edit and share these request template. Developers will keep control on every part of these data (request, template and data samples) to share each part as they want (synced cloud or git repository for example).<br/>
+It works on mac, linux and windows.
 
 
 ### Built With
